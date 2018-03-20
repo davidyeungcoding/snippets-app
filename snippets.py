@@ -21,18 +21,9 @@ def put(name, snippet):
 def get(name):
     """Prints out the message associated with the keyword"""
     cursor = connection.cursor()
-    command = "select * from snippets where keyword = (%s,)"
-    cursor.execute(command, (name))
-    cursor.fetchone()
-    
-    # """Retrieve the snippet with a given name.
-
-    # If there is no such snippet, return '404: Snippet Not Found'.
-
-    # Returns the snippet.
-    # """
-    # logging.error("FIXME: Unimplemented - get({!r})".format(name))
-    # return ""
+    command = "select * from snippets where keyword = %s"
+    cursor.execute(command, (name,))
+    return cursor.fetchone()
     
 def main():
     """Main function"""
@@ -61,5 +52,5 @@ def main():
         snippet = get(**arguments)
         print("Retrieved snippet: {!r}".format(snippet))
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
